@@ -207,7 +207,36 @@ curl -X POST http://127.0.0.1:8787/admin/scripts \
 
 排到第一位即可（first success wins）。GD Studio 之类的公共接口可以作为兜底排在后面。
 
-> 注意：otter-music 的 Worker 对 `/music-api` 响应做了 Cache API 缓存，
+### ⚠️ 如果客户端本身也是 Worker：必须用 Service Binding
+
+**一个 Worker 不能 fetch 另一个 Worker 的 `*.workers.dev` 地址**（同一账号下）。
+Cloudflare 会判定为同 zone 回环，返回 `error code: 1042`，表现为上游恒 404、
+请求静默回退到下一个音源——看起来就像「桥接没生效」。
+
+正确做法是 service binding（内部调用，不走公网）：
+
+```jsonc
+// 客户端 Worker 的 wrangler.jsonc
+{
+  "services": [
+    { "binding": "LX_BRIDGE", "service": "lx-http-bridge" }
+  ]
+}
+```
+
+```ts
+// 命中桥接域名时走绑定，其余照常 fetch
+const bridge = c.env.LX_BRIDGE;
+const res =
+  bridge && /(^|\.)lx-http-bridge\./i.test(new URL(targetUrl).hostname)
+    ? await bridge.fetch(targetUrl, { headers: { "User-Agent": UA } })
+    : await fetch(targetUrl, { headers: { "User-Agent": UA } });
+```
+
+otter-music 仓库已按此实现（`functions/routes/music.ts` 的 `fetchUpstream()`）。
+若客户端部署在 Pages 或本地 dev（没有 binding），代码会自动回退到公网 fetch。
+
+> 另外：otter-music 的 Worker 对 `/music-api` 响应做了 Cache API 缓存，
 > 但 `types=url`（播放地址）已排除在缓存之外 —— 带签名的地址缓存会导致「点了没声音」。
 
 ---
