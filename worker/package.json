@@ -6,12 +6,15 @@
   "description": "洛雪音源桥接的 Cloudflare Workers 版本：GD Studio 兼容接口，用平台原生搜索与取链",
   "main": "src/index.js",
   "scripts": {
-    "dev": "npx wrangler@4 dev",
-    "deploy": "npx wrangler@4 deploy",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
     "check": "node --check src/index.js && node --check src/search.js && node --check src/resolve.js && node --check src/util.js",
     "test": "node test/unit.js && node test/smoke.js"
   },
+  "devDependencies": {
+    "wrangler": "4.162.0"
+  },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   }
 }
