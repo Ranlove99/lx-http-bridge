@@ -1,0 +1,10 @@
+{
+  // 根目录配置：让 Workers Builds 在「Root directory 留空」时也能直接部署。
+  // 如果 Root directory 填了 `worker`，用的则是 worker/wrangler.jsonc，两者等价。
+  "name": "lx-http-bridge",
+  "main": "worker/src/index.js",
+  "compatibility_date": "2026-11-14",
+  "observability": {
+    "enabled": true
+  }
+}

@@ -25,20 +25,22 @@
 
 1. Cloudflare Dashboard → **Workers & Pages** → **Create** → **Workers** → **Connect to Git**
 2. 授权并选择仓库 `Ranlove99/lx-http-bridge`
-3. 按下表填写，**Root directory 是唯一容易填错的一项**：
+3. 按下表填写：
 
 | 字段 | 填什么 |
 | --- | --- |
 | Worker name | `lx-http-bridge` |
-| Root directory（Advanced settings 里） | `worker` |
+| Root directory（Advanced settings 里） | **留空**即可（仓库根目录已有 `wrangler.jsonc`）；填 `worker` 也等价 |
 | Build command | `npm install` |
 | Deploy command | `npx wrangler deploy` |
 | Build variable（可选，建议加） | `NODE_VERSION` = `22` |
 
 4. 保存并部署，得到 `https://lx-http-bridge.<你的子域>.workers.dev`
 
-> `wrangler` 已在 `worker/package.json` 里钉到 `4.162.0`，并提交了 `package-lock.json`，
-> 所以构建用的 wrangler 版本是确定的，不会因为平台默认版本比 `compatibility_date` 旧而报错。
+> 根目录的 `wrangler.jsonc` 把 `main` 指向 `worker/src/index.js`，所以即使 Root directory 留空，
+> `wrangler deploy` 也会正确打包 Workers 版，而不会去动 Node 版的 `server.js`。
+> `wrangler` 已在 `worker/package.json` 里钉到 `4.162.0` 并提交了 `package-lock.json`，
+> 构建用的版本是确定的，不会因为平台默认版本比 `compatibility_date` 旧而报错。
 
 **方式 B：命令行**
 
