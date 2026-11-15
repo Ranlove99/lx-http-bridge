@@ -1,0 +1,13 @@
+本目录下的 .js 文件是第三方公开分发的 LX Music（洛雪音乐）音源脚本，
+仅作为「把脚本包装成 HTTP 接口」的默认示例，版权归各自作者所有。
+
+来源（pdone/lx-music-source，每日自动做可用性检测）：
+  xinghai    https://raw.githubusercontent.com/pdone/lx-music-source/main/xinghai/latest.js
+  huibq      https://raw.githubusercontent.com/pdone/lx-music-source/main/huibq/latest.js
+  hyw        https://raw.githubusercontent.com/pdone/lx-music-source/main/hyw/latest.js
+  jiexiang   https://raw.githubusercontent.com/pdone/lx-music-source/main/jiexiang/latest.js
+  qingliang  https://raw.githubusercontent.com/pdone/lx-music-source/main/qingliang/latest.js
+
+这些脚本的上游随时可能失效。要换用别的脚本：
+  - 直接把新的 .js 放进本目录后重新部署；或
+  - 用 POST /admin/scripts {"url": "<脚本地址>"} 在运行时导入（需要 X-Admin-Token）。

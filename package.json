@@ -1,0 +1,15 @@
+{
+  "name": "lx-http-bridge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "把 LX Music (洛雪音乐) .js 音源脚本包装成 GD Studio 兼容的 HTTP 接口",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check lx-runtime.js && node --check search-apis.js",
+    "test": "node test/search-apis.test.js && node test/smoke.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

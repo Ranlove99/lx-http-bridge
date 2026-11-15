@@ -1,0 +1,12 @@
+{
+  "adminToken": "",
+  "env": "desktop",
+  "version": "2.0.0",
+  "timeoutMs": 12000,
+  "initTimeoutMs": 8000,
+  "urlCacheTtlMs": 300000,
+  "proxyStream": false,
+  "fallbackApi": "",
+  "sourceUrls": [],
+  "priority": ["xinghai", "huibq", "hyw", "jiexiang", "qingliang"]
+}

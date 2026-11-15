@@ -1,0 +1,12 @@
+# 运行期配置与数据（含 adminToken，不要提交）
+config.json
+data/
+
+# 依赖与构建产物
+node_modules/
+.wrangler/
+dist/
+
+# 系统与日志
+.DS_Store
+*.log
